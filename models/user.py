@@ -9,7 +9,7 @@ from models.review import Review
 
 
 class User(BaseModel, Base):
-    """Class representation of a User
+    """This is the class for user
     Attributes:
         email: email address
         password: password for you login
@@ -17,7 +17,6 @@ class User(BaseModel, Base):
         last_name: last name
     """
     __tablename__ = "users"
-    
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
     first_name = Column(String(128))
