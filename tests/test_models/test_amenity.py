@@ -26,15 +26,6 @@ class test_Amenity(test_basemodel):
         new = self.value()
         self.assertEqual(type(new.name), str)
 
-class test_inherit_basemodel(unittest.TestCase):
-    """Test if user inherit from BaseModel"""
-    def test_instance(self):
-        """check if user is an instance of BaseModel"""
-        user = Amenity()
-        self.assertIsInstance(user, Amenity)
-        self.assertTrue(issubclass(type(user), BaseModel))
-        self.assertEqual(str(type(user)), "<class 'models.amenity.Amenity'>")
-
 
 class Test_PEP8(unittest.TestCase):
     """test User"""
@@ -44,6 +35,16 @@ class Test_PEP8(unittest.TestCase):
         result = pep8style.check_files(['models/amenity.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
+
+
+class test_inherit_basemodel(unittest.TestCase):
+    """Test if user inherit from BaseModel"""
+    def test_instance(self):
+        """check if user is an instance of BaseModel"""
+        user = Amenity()
+        self.assertIsInstance(user, Amenity)
+        self.assertTrue(issubclass(type(user), BaseModel))
+        self.assertEqual(str(type(user)), "<class 'models.amenity.Amenity'>")
 
 
 class test_Amenity_BaseModel(unittest.TestCase):
@@ -90,15 +91,14 @@ class test_Amenity_BaseModel(unittest.TestCase):
             user_id = instance.id
             with self.subTest(user_id=user_id):
                 self.assertIs(type(user_id), str)
-        self.assertNotEqual(user_1.id, user_2.id)    
-        self.assertNotEqual(user_2.id, user_3.id)
+        self.assertNotEqual(user_1.id, user_2.id)
         self.assertNotEqual(user_1.id, user_3.id)
+        self.assertNotEqual(user_2.id, user_3.id)
         self.assertTrue(user_1.created_at <= user_2.created_at)
         self.assertTrue(user_2.created_at <= user_3.created_at)
+        self.assertNotEqual(user_1.created_at, user_2.created_at)
         self.assertNotEqual(user_1.created_at, user_3.created_at)
         self.assertNotEqual(user_3.created_at, user_2.created_at)
-        self.assertNotEqual(user_1.created_at, user_2.created_at)
-      
 
     def test_str_method(self):
         """
@@ -162,11 +162,10 @@ class TestAmenity(unittest.TestCase):
         am = Amenity()
         new_d = am.to_dict()
         self.assertEqual(new_d["__class__"], "Amenity")
-        self.assertEqual(new_d["created_at"], am.created_at.strftime(t_format))
-        self.assertEqual(new_d["updated_at"], am.updated_at.strftime(t_format))
         self.assertEqual(type(new_d["created_at"]), str)
         self.assertEqual(type(new_d["updated_at"]), str)
-       
+        self.assertEqual(new_d["created_at"], am.created_at.strftime(t_format))
+        self.assertEqual(new_d["updated_at"], am.updated_at.strftime(t_format))
 
     def test_str(self):
         """test that the str method has the correct output"""

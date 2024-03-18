@@ -22,21 +22,19 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """function returns a dictionary of objects
+        """returns a dictionary
         Return:
             returns a dictionary of __object
         """
-        objdic = {}
-
+        dic = {}
         if cls:
             dictionary = self.__objects
-
             for key in dictionary:
-                partitions = key.replace('.', ' ')
-                partitions = shlex.split(partitions)
-                if (partitions[0] == cls.__name__):
-                    objdic[key] = self.__objects[key]
-            return (objdic)
+                partition = key.replace('.', ' ')
+                partition = shlex.split(partition)
+                if (partition[0] == cls.__name__):
+                    dic[key] = self.__objects[key]
+            return (dic)
         else:
             return self.__objects
 
@@ -70,11 +68,11 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """ Function for deleting an existing element
+        """ delete an existing element
         """
         if obj:
-            Objectkey = "{}.{}".format(type(obj).__name__, obj.id)
-            del self.__objects[Objectkey]
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            del self.__objects[key]
 
     def close(self):
         """ calls reload()

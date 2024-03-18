@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Float
 
 
 class Review(BaseModel, Base):
-    """Class representation of a Review
+    """This is the class for Review
     Attributes:
         place_id: place id
         user_id: user id

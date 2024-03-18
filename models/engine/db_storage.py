@@ -14,7 +14,7 @@ from models.amenity import Amenity
 
 
 class DBStorage:
-    """ Function that create tables in environmental"""
+    """ create tables in environmental"""
     __engine = None
     __session = None
 
@@ -33,50 +33,49 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Function that returns Object distcionary
+        """returns a dictionary
         Return:
             returns a dictionary of __object
         """
-        mydic = {}
+        dic = {}
         if cls:
             if type(cls) is str:
                 cls = eval(cls)
             query = self.__session.query(cls)
             for elem in query:
                 key = "{}.{}".format(type(elem).__name__, elem.id)
-                mydic[key] = elem
+                dic[key] = elem
         else:
-            listed = [State, City, User, Place, Review, Amenity]
-
-            for classes in listed:
-                query = self.__session.query(classes)
+            lista = [State, City, User, Place, Review, Amenity]
+            for clase in lista:
+                query = self.__session.query(clase)
                 for elem in query:
                     key = "{}.{}".format(type(elem).__name__, elem.id)
-                    mydic[key] = elem
-        return (mydic)
+                    dic[key] = elem
+        return (dic)
 
     def new(self, obj):
-        """Function to add a new element in the table
+        """add a new element in the table
         """
         self.__session.add(obj)
 
     def save(self):
-        """Function to save changes
+        """save changes
         """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Function to delete an element in the table
+        """delete an element in the table
         """
         if obj:
             self.session.delete(obj)
 
     def reload(self):
-        """Function for configuration
+        """configuration
         """
         Base.metadata.create_all(self.__engine)
-        secs = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(secs)
+        sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sec)
         self.__session = Session()
 
     def close(self):
