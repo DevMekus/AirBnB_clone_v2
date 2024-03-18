@@ -14,15 +14,17 @@ class test_City(test_basemodel):
         self.name = "City"
         self.value = City
 
+    def test_name(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.name), str)
+
     def test_state_id(self):
         """ """
         new = self.value()
         self.assertEqual(type(new.state_id), str)
 
-    def test_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    
 
 
 class Test_PEP8(unittest.TestCase):
@@ -66,19 +68,7 @@ class TestCity(unittest.TestCase):
 
     def test_checking_for_docstring_City(self):
         """checking for docstrings"""
-        self.assertIsNotNone(City.__doc__)
-
-    def test_attributes_City(self):
-        """chekcing if City have attributes"""
-        self.assertTrue('id' in self.city.__dict__)
-        self.assertTrue('created_at' in self.city.__dict__)
-        self.assertTrue('updated_at' in self.city.__dict__)
-        self.assertTrue('state_id' in self.city.__dict__)
-        self.assertTrue('name' in self.city.__dict__)
-
-    def test_is_subclass_City(self):
-        """test if City is subclass of Basemodel"""
-        self.assertTrue(issubclass(self.city.__class__, BaseModel), True)
+        self.assertIsNotNone(City.__doc__)   
 
     def test_attribute_types_City(self):
         """test attribute type for City"""
@@ -86,9 +76,21 @@ class TestCity(unittest.TestCase):
         self.assertEqual(type(self.city.state_id), str)
 
     def test_save_City(self):
-        """test if the save works"""
+        """if the save works"""
         self.city.save()
         self.assertNotEqual(self.city.created_at, self.city.updated_at)
+
+    def test_is_subclass_City(self):
+        """if City is subclass of Basemodel"""
+        self.assertTrue(issubclass(self.city.__class__, BaseModel), True)
+
+    def test_attributes_City(self):
+        """Test if City has attribute"""
+        self.assertTrue('id' in self.city.__dict__)
+        self.assertTrue('created_at' in self.city.__dict__)
+        self.assertTrue('updated_at' in self.city.__dict__)
+        self.assertTrue('state_id' in self.city.__dict__)
+        self.assertTrue('name' in self.city.__dict__)
 
     def test_to_dict_City(self):
         """test if dictionary works"""
